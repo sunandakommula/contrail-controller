@@ -6,6 +6,29 @@ an Internet Exchange Point. VRS is one of the E2 suites of SDN controllers
 that provide service abstraction by translating high-level user-defined 
 abstract data models, into low-level device configuration.
 
+With the rise of SDNs and Intent Based Networking, network operators want 
+to specify what they want to do instead of describing how it is to be done. 
+E2 is an SDN Controller that instantiates network service instances across 
+nodes of a network, whether physical or virtual.  E2 leverages intent-based 
+service models to describe the resulting network service instances. E2 
+Virtual Route Server brings intent based network services into the Internet 
+Exchange Point (IXP) networks, which were traditionally managed by open 
+source route servers.
+
+In a typical IXP network, there are several clients and there is a route-
+server; the route server establishes external BGP sessions with the clients’
+peering routers. To implement a peering service, the route server needs to 
+be configured with elaborate BGP policies, which define how to distribute 
+routes between clients. These policies can be complex and tedious to 
+configure manually, and error prone when many clients are peering with the 
+route server.
+
+E2 VRS solves this problem by simplifying and automating the route server 
+configuration. E2 VRS provides Peerbook as the user-interface to manage the 
+system. Using Peerbook, the IXP operator can express the peering intent using 
+a simple intuitive model and leave the onus and complexity of configuring the 
+clients and BGP policies to the VRS system.
+
 ![Image of Segmentation](images/contrail-E2.png)
 
 # 2. Problem Statement
