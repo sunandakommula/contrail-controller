@@ -1,32 +1,16 @@
 # 1. Introduction
-Contrail:E2 is a scalable and highly available service provisoning SDN
-controller that places network service instances across different nodes
-of a network, whether physical or virtual.
-
-A continuous stream processing data from the network contributes to the
-engine placing the input “intent” – a high-level description of a network
-service request. Such request will result in a decision on where it should be
-orchestrated, based on the request types, available resources and network
-status. The intent is then transferred to the network elements using a
-combination of configuration and control APIs exposed by the network devices.
-Changes to the configuration are made using industry standard Netconf protocol,
-changes to the control plane via RPCs, and changes to the data plane via
-forwarding APIs provided by the device (e.g Juniper’s API is called AFI:
-Advanced Forwarding Interface).
-
-The engine gets a wide variety of real-time feeds of telemetry data, including
-topology, bandwidths, latencies, flow captures, routing information, and
-application and user metrics. Telemetry data streamed from the devices is
-utilized to make placement decisions in order to ensure optimal utilization
-of network nodes and guarantee the required SLAs.  The system will also provide
-lifecycle event hooks for the orchestration so that the user can customize the
-workflow in the way they deem appropriate.
+The Elastic Edge - Virtual Route Server (E2 VRS) is Junipers’ first offering
+of a programmable Route Server to the Internet Exchange community. E2 VRS is 
+an intent driven SDN controller that instantiates public peering services at 
+an Internet Exchange Point. VRS is one of the E2 suites of SDN controllers 
+that provide service abstraction by translating high-level user-defined 
+abstract data models, into low-level device configuration.
 
 ![Image of Segmentation](images/contrail-E2.png)
 
 # 2. Problem Statement
-Support service provisoning high level data model and low level technology
-configuration in Contrail.
+Design and implement a high level user model for public-peering and low-level
+technology model to configure the Junos VRR as a route-server through Contrail.
 
 # 3. Proposed Solution
 The data model for this new controller is shown in below picture.
