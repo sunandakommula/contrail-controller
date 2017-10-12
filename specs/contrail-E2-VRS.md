@@ -6,6 +6,7 @@ an Internet Exchange Point. VRS is one of the E2 suites of SDN controllers
 that provide service abstraction by translating high-level user-defined 
 abstract data models, into low-level device configuration.
 
+# 2. Functionality
 With the rise of SDNs and Intent Based Networking, network operators want 
 to specify what they want to do instead of describing how it is to be done. 
 E2 is an SDN Controller that instantiates network service instances across 
@@ -29,7 +30,92 @@ system. Using Peerbook, the IXP operator can express the peering intent using
 a simple intuitive model and leave the onus and complexity of configuring the 
 clients and BGP policies to the VRS system.
 
-![Image of Segmentation](images/contrail-E2.png)
+## 2.1 Peerbook
+Peerbook provides the interface into the E2 VRS system. Using Peerbook, the 
+IXP operator can express the intent to establish peering service between the 
+IXP clients using a simple data model. This data-model serves as a single source 
+of truth, and abstracts the operator from the low-level route-server 
+configuration details.
+
+The intended user of Peerbook is the IXP operator. In the future, we may extend 
+it to allow IXP members to onboard themselves and initiate peering requests with 
+other members. In this section, we will introduce the Peerbook constructs at a 
+high-level.
+
+### 2.1.1 Peerbook Client
+Within Peerbook, a Client represents a service-provider domain or a member 
+at the IXP. Each client may have one or more member routers or Peers. Each Peer 
+is an Autonomous System Boundary Router (ASBR) that is connected to the IXP 
+network, and runs external-BGP to exchange routing information from the client 
+to the VRS and vice-versa.
+
+A client domain may consist of a single or multiple Autonomous systems (AS). 
+Within each AS, there can be one or more Peers.
+
+The Client is identified by a name of the organization and is a logical grouping 
+of all Peers of that client. Each Peer is defined by properties, which include 
+IP-address, AS-number, and some optional characteristics. 
+This can be represented using the following object model as shown in Figure-2.
+
+### 2.1.2 Peerbook Connection
+A Peerbook Connection represents a peering intent, and connects two Clients. 
+When two clients are connected in Peerbook, the VRS system automatically does 
+several operations that lead to the clients exchanging routing information with 
+each other, such as:
+    -Establish external-BGP sessions with each Peer
+    -Generate and configure extensive policies using BGP communities
+    -Apply policies to the routing-instance import/export attachment point
+    -Import and evaluate routes from each Peer
+    -Apply rib-group policy to copy routes between local-RIBs
+    -Evaluate and export routes to each Peer
+
+In the scope of this feature, the connection represents a public-peering policy. 
+This could evolve into more complex policy objects when E2 VRS is extended to 
+use-cases beyond IXP deployments.
+
+### 2.1.3 Peerbook Workflows
+The Peerbook workflow consists of the following basic steps:
+    -Pre-staging the VRS system (E2 VRS application and VRR pre-staging)
+    -Adding a client (Define a client with a list of Peers)
+    -Connecting two clients for public-peering
+
+In addition, Peerbook also supports these additional workflows:
+    -Updating a client (add Peers, delete Peers, update Peers)
+    -Deleting a client (deletes the client and its connections)
+    -Disconnecting two clients
+
+For operations and management, Peerbook supports the following:
+    -Client status
+    -Peer status
+    -Number of prefix imported from a client
+    -Number of prefixes exported to a client
+
+# 3. E2 VRS Architecture
+Within the E2 VRS system is the E2 app, the Contrail system and the network 
+where the JUNOS VRR is running as a VM. The VRR is an enhanced version of 
+JUNOS RPD with special code that enables it to function as a route server. 
+
+The VRR establishes BGP sessions with the Clients’ Peer routers and populates 
+its local RIB with the routes from the Peers. When 2 clients peer using the 
+VRS system, the VRR facilitates route exchange between the clients, by 
+using IXP standard BGP policies that identify well-known client tagged 
+prefixes.
+
+The E2 App, together with the Contrail subsystem, provides the service 
+abstraction by translating high-level user intent, into low-level VRR 
+configuration. Note that the VRS system only configures the VRR, and not 
+the Clients’ Peer routers. This is the convention in IX networks, where 
+the operator configures the route server and the clients/service-providers 
+configure their member routers, thus having full control over their network 
+prefixes, how to tag them, what prefixes they want to advertise to the route 
+server, and what prefixes they want to import from the route server.
+
+The Peering Intent data model specified by the user is stored and represented 
+at various layers in the E2 VRS system, including the E2 App and E2 Contrail. 
+The Contrail system has VRS extensions to translate peering intent into route 
+server configurations and pushes this configuration to the VRR.
+
+![Image of Segmentation](images/contrail-e2-vrs-arch.png)
 
 # 2. Problem Statement
 Design and implement a high level user model for public-peering and low-level
