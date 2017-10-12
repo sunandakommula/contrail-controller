@@ -52,6 +52,8 @@ to the VRS and vice-versa.
 A client domain may consist of a single or multiple Autonomous systems (AS). 
 Within each AS, there can be one or more Peers.
 
+![Image of Segmentation](images/contrail-e2-vrs-client.png)
+
 The Client is identified by a name of the organization and is a logical grouping 
 of all Peers of that client. Each Peer is defined by properties, which include 
 IP-address, AS-number, and some optional characteristics. 
@@ -68,6 +70,8 @@ each other, such as:
     -Import and evaluate routes from each Peer
     -Apply rib-group policy to copy routes between local-RIBs
     -Evaluate and export routes to each Peer
+
+![Image of Segmentation](images/contrail-e2-vrs-connection.png)
 
 In the scope of this feature, the connection represents a public-peering policy. 
 This could evolve into more complex policy objects when E2 VRS is extended to 
