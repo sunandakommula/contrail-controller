@@ -132,47 +132,40 @@ The following is the data model for Internet Peering.
 ![Image of Segmentation](images/contrail-e2-vrs-datamodel.png)
 
 ## 3.1 Alternatives considered
-Implement SDN without Contrail support
+Implement Route Server without Contrail.
+
 ## 3.2 API schema changes
-Current API schema is unaffected, except few attributes were added to
-physicalRouter, physicalInterface and VirtualNetwork.
-Rest of the schema objects are new and applicable to provisioning SDN,
-as shown in section 3.
-
-The flavors like P2L, and MP2MP will be covered later. For now, the focus is on
-P2P model.
-
+Current API schema is not affected. E2 VRS is added as an additional application
+to the E2 suite. New ojects are defined to represent a client and peering-policy.
 
 ## 3.3 User workflow impact
-None at this moment
+None.
+
 ## 3.4 UI changes
-None as Contrail:E2 uses its own UI, instead of Contrail UI.
+E2 VRS has its own UI and does not use Contrail UI.
+
 ## 3.5 Notification impact
 None
-## 3.6 Block diagram
-![Image of Segmentation](images/contrail-e2-architecture.png)
 
 # 4. Implementation
-Only two modules in contrail are affected by Contrail:E2
+The following Contrail modules are enchanced to support E2 VRS.
 
 1. Contrail API schema
 2. Contrail device-manager
 
 ## 4.1 Work-items for Contrail API
 
-1.  Define new data model for service provisioning use case
-2.  Define new UVE types for fetching
-     - Network configuration
-     - Service status
+1.  Define a new data model for Internet Peering via a route-server
 
 ## 4.2 Work-items for Contrail device manager
 
-1.  Add low level configuration support for contrail:E2 services
-2.  Add multi-vendor support(specifically Nokia)
-3.  Add service-status and network configuration UVEs
+1.  Add device-manager objects corresponding to user model objects
+2.  Add configuration for peering
 
 # 5. Performance and scaling impact
-Contrail:E2 needs support for managing upto 4000 network devices.
+E2 VRS needs to support a few thousand clients at-most. The known
+upper limit is around 800 clients.
+
 Performance of a single contrail controller should process 80-100
 API requests/second.
 
@@ -185,7 +178,7 @@ Upgrade is seamless,no impact. Below is the layout of Contrail:E2 package
 None
 
 # 8. Dependencies
-1. Support from Contrail config node manager team.
+None
 
 # 9. Testing
 ## 9.1 Unit tests
