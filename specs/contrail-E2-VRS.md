@@ -127,9 +127,9 @@ Design and implement a high level user model for public-peering and low-level
 technology model to configure the Junos VRR as a route-server through Contrail.
 
 # 3. Proposed Solution
-The data model for this new controller is shown in below picture.
+The following is the data model for Internet Peering.
 
-![Image of Segmentation](images/contrail-e2-datamodel.png)
+![Image of Segmentation](images/contrail-e2-vrs-datamodel.png)
 
 ## 3.1 Alternatives considered
 Implement SDN without Contrail support
