@@ -64,12 +64,13 @@ A Peerbook Connection represents a peering intent, and connects two Clients.
 When two clients are connected in Peerbook, the VRS system automatically does 
 several operations that lead to the clients exchanging routing information with 
 each other, such as:
-     - Establish external-BGP sessions with each Peer
-     - Generate and configure extensive policies using BGP communities
-     - Apply policies to the routing-instance import/export attachment point
-     - Import and evaluate routes from each Peer
-     - Apply rib-group policy to copy routes between local-RIBs
-     - Evaluate and export routes to each Peer
+
+1. Establish external-BGP sessions with each Peer
+2. Generate and configure extensive policies using BGP communities
+3. Apply policies to the routing-instance import/export attachment point
+4. Import and evaluate routes from each Peer
+5. Apply rib-group policy to copy routes between local-RIBs
+6. Evaluate and export routes to each Peer
 
 ![Image of Segmentation](images/contrail-e2-vrs-connection.png)
 
@@ -79,20 +80,20 @@ use-cases beyond IXP deployments.
 
 ### 2.1.3 Peerbook Workflows
 The Peerbook workflow consists of the following basic steps:
-     - Pre-staging the VRS system (E2 VRS application and VRR pre-staging)
-     - Adding a client (Define a client with a list of Peers)
-     - Connecting two clients for public-peering
+1. Pre-staging the VRS system (E2 VRS application and VRR pre-staging)
+2. Adding a client (Define a client with a list of Peers)
+3. Connecting two clients for public-peering
 
 In addition, Peerbook also supports these additional workflows:
-     - Updating a client (add Peers, delete Peers, update Peers)
-     - Deleting a client (deletes the client and its connections)
-     - Disconnecting two clients
+1. Updating a client (add Peers, delete Peers, update Peers)
+2. Deleting a client (deletes the client and its connections)
+3. Disconnecting two clients
 
 For operations and management, Peerbook supports the following:
-     - Client status
-     - Peer status
-     - Number of prefix imported from a client
-     - Number of prefixes exported to a client
+1. Client status
+2. Peer status
+3. Number of prefix imported from a client
+4. Number of prefixes exported to a client
 
 # 3. E2 VRS Architecture
 Within the E2 VRS system is the E2 app, the Contrail system and the network 
@@ -145,7 +146,7 @@ P2P model.
 ## 3.3 User workflow impact
 None at this moment
 ## 3.4 UI changes
-None as Contrail:E2 uses it's own UI, instead of Contrail UI.
+None as Contrail:E2 uses its own UI, instead of Contrail UI.
 ## 3.5 Notification impact
 None
 ## 3.6 Block diagram
